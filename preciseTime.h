@@ -3,6 +3,7 @@
 #include <iomanip>
 #include <cstdlib>
 #include "timeOfDay.h"
+#include "timeException.h"
 
 namespace Jeonhyojeong2593270
 {
@@ -15,8 +16,7 @@ namespace Jeonhyojeong2593270
         {
             if (second < 0 || second > 59)
             {
-                std::cout << "invalid second\n";
-                std::exit(1);
+                throw timeException{"Invalid second"};
             }
         }
 
@@ -35,17 +35,28 @@ namespace Jeonhyojeong2593270
             testSecond(); 
         }
 
-        virtual void print(std::ostream& os = std::cout) const
+
+        // virtual void print(std::ostream& os = std::cout) const
+        // {
+        //     timeOfDay::print(os);
+        //     os << ':' << std::setfill('0') << std::setw(2) << second;
+        // }
+
+        // friend std::ostream& operator<<(std::ostream& os, const preciseTime& p)
+        // {
+        //     p.print(os);
+        //     return os;
+        // }
+        virtual void print(std::ostream& os = std::cout) const override
         {
             timeOfDay::print(os);
-            os << ':' << std::setfill('0') << std::setw(2) << second;
-        }
+            os << ':' << std::setfill('0') << std::setw(2) << second << '\n';
 
-        friend std::ostream& operator<<(std::ostream& os, const preciseTime& p)
+        }
+        virtual void input(std::istream& is = std::cin) override
         {
-            os << static_cast<const timeOfDay&>(p) << ':';
-            os << std::setfill('0') << std::setw(2) << p.second;
-            return os;
+            timeOfDay::input(is);
+            std::cout << "Enter second: "; is >> second; testSecond();
         }
     };
 }

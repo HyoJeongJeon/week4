@@ -1,5 +1,9 @@
+#pragma once
 #include <iostream>
 #include <iomanip>
+#include <string>
+#include <exception>
+#include "timeException.h"
 
 namespace Jeonhyojeong2593270
 {
@@ -13,8 +17,7 @@ namespace Jeonhyojeong2593270
         {
             if (hour < 0 || hour > 23)
             {
-                std::cout << "invalid hour\n" << std::endl;
-                std::cout << std::endl;
+                throw timeException{"Invalid hour\n"};    //std::exit함수를 호출하는 부분을 예외클래스에 메시지를 넣어 던지게 변경
             }
         }
 
@@ -22,8 +25,7 @@ namespace Jeonhyojeong2593270
         {
             if (minute < 0 || minute > 59)
             {
-                std::cout << "invalid minute\n" << std::endl;
-                std::cout << std::endl;
+                throw timeException{"Invalid minute\n"};
             }
         }
 
@@ -34,12 +36,17 @@ namespace Jeonhyojeong2593270
             testMinute();
         }
 
-        void input()
+        virtual void input(std::istream& is = std::cin)
         {
-            std::cout << "Enter hour: "; std::cin >> hour; testHour();
-            std::cout << "Enter minute: "; std::cin >> minute; testMinute();
+            std::cout << "Enter hour: "; is >> hour; testHour();
+            std::cout << "Enter minute: "; is >> minute; testMinute();
         }
-
+        friend std::istream& operator>>(std::istream& is, timeOfDay& t)
+        {
+            t.input(is);
+            return is;
+        }
+        
         void setHour(int h)
         {
             hour = h;

@@ -6,48 +6,67 @@ int main()
 {
     using namespace Jeonhyojeong2593270;
 
-    preciseTime p{2,16,17}; p.print();
-    std::cout << "-silicing problem\n";
-    timeOfDay t{p}; t.print(); std::cout << '\n';
+    try
+    {
+    // preciseTime p{2, 16, 17};
+    // p.print();
+    // std::cout << "\n-silicing problem\n";
+    // timeOfDay t{p};
+    // t.print();
+    // std::cout << '\n';
 
-    std::cout << "-silicing problems defeated (pointer)\n";
-    preciseTime* pp{&p}; pp->print();
-    timeOfDay* pt(pp); pt->print();
+    // std::cout << "-silicing problems defeated (pointer)\n";
+    // preciseTime* pp{&p};
+    // pp->print();
+    // timeOfDay* pt{pp};
+    // pt->print();
 
-    std::cout << "-silicing problems defeated {dynamic}\n";
-    timeOfDay* pd{new preciseTime(2,26,39)}; pd->print();
-    delete pd;
+    // std::cout << "-silicing problems defeated {dynamic}\n";
+    // timeOfDay* pd{new preciseTime(2, 26, 39)};
+    // pd->print();
 
-    std::cout << "silicing problems defeated {smart pointer}\n";
-    std::unique_ptr<timeOfDay> pu{std::make_unique<preciseTime>(2,31,32)};
-    pu->print();
+    // std::cout << "silicing problems defeated {smart pointer}\n";
+    // std::unique_ptr<timeOfDay> pu{std::make_unique<preciseTime>(2, 31, 32)};
+    // pu->print();
 
-    std::cout << "\nstd::vector로도 테스트\n";
-    std::vector<timeOfDay> v;
-    v.push_back(t); v[0].print(); std::cout << '\n';
-    v.push_back(p); v[1].print(); std::cout << '\n';
+    // std::cout << "\nstd::vector로도 테스트\n";
+    // std::vector<timeOfDay> v;
+    // v.push_back(t);
+    // v[0].print();
+    // std::cout << '\n';
+    // v.push_back(p);
+    // v[1].print();
+    // std::cout << '\n';
 
-    std::cout << "`silicing problems defeated (pointer)\n";
-    std::vector<timeOfDay*> vp;
-    vp.push_back(pt); vp[0]->print();
-    vp.push_back(pp); vp[1]->print();
-    vp.push_back(pd); vp[2]->print();
+    // std::cout << "`silicing problems defeated (pointer)\n";
+    // std::vector<timeOfDay*> vp;
+    // vp.push_back(pt);
+    // vp[0]->print();
+    // vp.push_back(pp);
+    // vp[1]->print();
+    // vp.push_back(pd);
+    // vp[2]->print();
 
+    // std::cout << "스마트포인터 vector\n";
+    // std::vector<std::unique_ptr<timeOfDay>> vu;
+    // vu.push_back(std::move(pu));
+    // vu[0]->print();
 
-    std::cout << "스마트포인터 vector\n";
-    std::vector<std::unique_ptr<timeOfDay>> vu;
-    vu.push_back(std::move(pu)); vu[0]->print(); 
+    // preciseTime time{2, 16, 17};
+    // std::cout << time;
 
+    preciseTime time{2, 16, 17};
+    std::cin >> time;
+    std::cout << time;
+    
+    }
 
-    delete pd;
-
+    catch(timeException& e)
+    {
+        std::cerr << e.getMessage();
+    }
     return 0;
-
-
-
-
-
-}
+} 
 
 
 
